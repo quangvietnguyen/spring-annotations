@@ -9,5 +9,4 @@
 
     <!-- add component scan-->
     <context:component-scan base-package="com.example.springdemoannotation"/>
-
 </beans>
