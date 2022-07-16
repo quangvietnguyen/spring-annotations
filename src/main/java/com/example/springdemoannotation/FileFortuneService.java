@@ -2,6 +2,7 @@ package com.example.springdemoannotation;
 
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,7 +16,8 @@ public class FileFortuneService implements FortuneService{
     private String fileName = "src/main/resources/fortunes.txt";
     private List<String> theFortunes;
     Random myRandom = new Random();
-    public FileFortuneService() {
+    @PostConstruct
+    public void FileFortuneService() {
         File theFile = new File(fileName);
         theFortunes = new ArrayList<String>();
         try (BufferedReader br = new BufferedReader(new FileReader(theFile))) {
@@ -27,6 +29,7 @@ public class FileFortuneService implements FortuneService{
         catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(" >> PostConstruct File Fortune Service: " + theFortunes);
     }
 
     @Override

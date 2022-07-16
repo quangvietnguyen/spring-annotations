@@ -1,13 +1,17 @@
 package com.example.springdemoannotation;
 
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 @Component
-//@Scope("prototype")
-public class TennisCoach implements Coach{
+@Scope("prototype")
+public class TennisCoach implements Coach, DisposableBean {
     @Autowired
     @Qualifier("fileFortuneService")
     private FortuneService fortuneService;
@@ -15,6 +19,23 @@ public class TennisCoach implements Coach{
     //define a default constructor
     public TennisCoach() {
         System.out.println(">> TenniesCoach: inside default constructor");
+    }
+
+    //define init method
+    @PostConstruct
+    public void doSomeInitStuffs() {
+        System.out.println(">> TennisCoach: inside doSomeInitStuffs method");
+    }
+    //define destroy method
+    /*
+    @PreDestroy
+    public void doSomeDestroyStuffs() {
+        System.out.println(">> TennisCoach: inside doSomeDestroyStuffs method");
+    }
+    */
+    @Override
+    public void destroy() throws Exception {
+        System.out.println(">> TennisCoach: inside destroy()");
     }
 
     /*
